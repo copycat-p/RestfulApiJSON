@@ -52,7 +52,7 @@ public class RestfulapiJsonApplication {
     	for (Map<String, Object> data : dataList) {
             if (data.get("KeyNo").equals(id)) {
                 data.put("Value", request.get("value")); // 새로운 값으로 업데이트
-                return "Data with ID " + id + " updated.";
+                return "Data with ID " + id + " updated, JSON : "+ data.toString();
             }
         }
         return "Data with ID " + id + " not found.";
