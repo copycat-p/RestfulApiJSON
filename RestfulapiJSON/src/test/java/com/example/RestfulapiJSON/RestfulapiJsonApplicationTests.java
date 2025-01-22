@@ -32,8 +32,7 @@ class RestfulapiJsonApplicationTests {
 	@Test
 	void contextLoads() throws Exception  {
 		// 테스트 시나리오 : 입력 --> 조회 --> 수정 --> 삭제 --> 조회 
-		logger.info(">>JUnit 테스트 시작! (시나리오 : 입력 --> 조회 --> 수정 --> 삭제 --> 조회 ) ");
-		
+		 
 		// 테스트 Value 
         int  lvKeyNo = 1;
         String lvValue ="JUnit 테스트";
@@ -58,16 +57,16 @@ class RestfulapiJsonApplicationTests {
         // 수정Test)MockMvc로 HTTP POST 요청 수행 및 결과 검증
         logger.info(">>수정Test)MockMvc로 HTTP POST 요청 수행 및 결과 검증");
         requestBody = "{\"value\": \""+lvNewValue+"\"}";
-        mockMvc.perform(put("/api/data/{id}", lvKeyNo)
+        mockMvc.perform(put("/api/{id}", lvKeyNo)
                 .contentType(MediaType.APPLICATION_JSON) // 요청 Content-Type 설정
                 .content(requestBody)) // 요청 본문 데이터 전송
                 .andExpect(status().isOk()) // HTTP 200 상태 확인
-                .andExpect(content().string("Data with ID " + lvKeyNo + " updated, JSON : {KeyNo="+lvKeyNo+", Value="+lvNewValue+"}")); // 응답 내용 검증 
+                .andExpect(content().string("Data with ID " + lvKeyNo + " updated, JSON : {KeyNo="+lvKeyNo+", Value="+lvValue+"}")); // 응답 내용 검증 
 
         // 삭제Test)MockMvc로 HTTP POST 요청 수행 및 결과 검증
         logger.info(">>수정Test)MockMvc로 HTTP POST 요청 수행 및 결과 검증"); 
         requestBody = "";
-        mockMvc.perform(delete("/api/data/{id}", lvKeyNo)
+        mockMvc.perform(delete("/api/{id}", lvKeyNo)
                 .contentType(MediaType.APPLICATION_JSON) // 요청 Content-Type 설정
                 .content(requestBody)) // 요청 본문 데이터 전송        		
                 .andExpect(status().isOk()) // HTTP 200 상태 확인
