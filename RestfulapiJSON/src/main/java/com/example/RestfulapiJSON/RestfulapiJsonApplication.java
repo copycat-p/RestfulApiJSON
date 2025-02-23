@@ -29,7 +29,6 @@ public class RestfulapiJsonApplication {
 
     String hostname = hostnameService.getHostnameB();
 
-
     private List<Map<String, Object>> dataList = new ArrayList<>();
 	// GitHub 테스트 입니다.
 	
