@@ -27,7 +27,6 @@ public class RestfulapiJsonApplication {
 		SpringApplication.run(RestfulapiJsonApplication.class, args);
 	}
 
-
     String hostname = hostnameService.getHostnameB();
 
 
