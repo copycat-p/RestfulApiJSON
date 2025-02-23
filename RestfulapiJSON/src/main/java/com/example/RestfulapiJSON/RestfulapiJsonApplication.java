@@ -44,7 +44,7 @@ public class RestfulapiJsonApplication {
         
         dataList.add(data);
         return "Data created with ID: " + id + ", JSON : " + data;
-        // 커밋하면 Junit 테스트가 싷행된다.
+        // 커밋하면 Junit 테스트가 싷행된다.!
     }
 
     // PUT: 데이터 업데이트
