@@ -26,8 +26,12 @@ public class RestfulapiJsonApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RestfulapiJsonApplication.class, args);
 	}
-	
-	private List<Map<String, Object>> dataList = new ArrayList<>();
+
+
+    String hostname = hostnameService.getHostnameB();
+
+
+    private List<Map<String, Object>> dataList = new ArrayList<>();
 	// GitHub 테스트 입니다.
 	
     // POST: 데이터 추가 
@@ -35,12 +39,12 @@ public class RestfulapiJsonApplication {
     public String createData(@RequestBody Map<String, String> request) {
     	Map<String, Object> data = new HashMap<>();
         int id = dataList.size() + 1;
-        
+
         data.put("KeyNo", id);
         data.put("Value", request.get("value"));
         
         dataList.add(data);
-        return "Data created with ID: " + id + ", JSON : " + data.toString();
+        return "Data created with ID: " + id + ", JSON : " + data;
     }
 
     // PUT: 데이터 업데이트
@@ -49,7 +53,7 @@ public class RestfulapiJsonApplication {
     	for (Map<String, Object> data : dataList) {
             if (data.get("KeyNo").equals(id)) {
                 data.put("Value", request.get("value")); // 새로운 값으로 업데이트
-                return "Data with ID " + id + " updated, JSON : "+ data.toString();
+                return "Data with ID " + id + " updated, JSON : "+ data;
             }
         }
         return "Data with ID " + id + " not found.";
@@ -64,7 +68,7 @@ public class RestfulapiJsonApplication {
                 return "Data with ID " + id + " deleted.";
             }
         }
-        return "Data with ID " + id + " not found."; 
+        return "Data with ID " + id + " not found.";
     }
 
     // GET: 데이터 조회 (테스트용)
@@ -83,10 +87,11 @@ public class RestfulapiJsonApplication {
     	} else {
         	for (Map<String, Object> data : dataList) {
                 if (data.get("KeyNo").equals(id)) { 
-                    return "Data :" + data.get("Value");
+                    return "Data :" + data.get("Value") + ", Hostname :" + hostname; // environment.getProperty("server.hostname");
                 }
             }
-            return "Data with ID " + id + " not found.";
+            String rtnStr = "Data with ID " + id + " not found" + ", Hostname :" + hostname; // environment.getProperty("server.hostname");
+            return rtnStr;
     	}
     }
 }

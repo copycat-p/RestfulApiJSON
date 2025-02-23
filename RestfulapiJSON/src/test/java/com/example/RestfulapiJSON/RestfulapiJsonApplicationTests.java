@@ -5,13 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.result.ContentResultMatchers;
+//import org.springframework.test.web.servlet.RequestBuilder;
+//import org.springframework.test.web.servlet.result.ContentResultMatchers;
 import org.springframework.http.MediaType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+//import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -24,13 +24,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class RestfulapiJsonApplicationTests {
 
+    String hostname = hostnameService.getHostnameB();
+
 	private static final Logger logger = LoggerFactory.getLogger(RestfulapiJsonApplicationTests.class);
 	
     @Autowired
     private MockMvc mockMvc;
-    
+
 	@Test
 	void contextLoads() throws Exception  {
+
 		// 테스트 시나리오 : 입력 --> 조회 --> 수정 --> 삭제 --> 조회 
 		logger.info(">>JUnit 테스트 시작! (시나리오 : 입력 --> 조회 --> 수정 --> 삭제 --> 조회 ) ");
 		
@@ -53,7 +56,7 @@ class RestfulapiJsonApplicationTests {
         logger.info(">>조회Test)MockMvc로 HTTP GET 요청 수행 및 결과 검증");
         mockMvc.perform(get("/api/data/{id}", lvKeyNo))
                 .andExpect(status().isOk()) // HTTP 200 OK 상태 확인
-                .andExpect(content().string("Data :" + lvValue)); // 응답 내용 확인		
+                .andExpect(content().string("Data :" + lvValue + ", Hostname :" + hostname)); //environment.getProperty("server.hostname"))); // 응답 내용 확인
 
         // 수정Test)MockMvc로 HTTP POST 요청 수행 및 결과 검증
         logger.info(">>수정Test)MockMvc로 HTTP POST 요청 수행 및 결과 검증");
@@ -77,9 +80,8 @@ class RestfulapiJsonApplicationTests {
         logger.info(">>조회Test)MockMvc로 HTTP GET 요청 수행 및 결과 검증");
         mockMvc.perform(get("/api/data/{id}", lvKeyNo))
                 .andExpect(status().isOk()) // HTTP 200 OK 상태 확인
-                .andExpect(content().string("Data with ID " + lvKeyNo + " not found.")); // 응답 내용 확인		
+                .andExpect(content().string("Data with ID " + lvKeyNo + " not found" + ", Hostname :" + hostname)); // environment.getProperty("server.hostname"))); // 응답 내용 확인
 
         logger.info(">>JUnit 테스트 시나리오 Pass! ^____^");
 	}
-
 }
